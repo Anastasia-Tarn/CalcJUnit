@@ -6,11 +6,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class CalculatorTest {
 
-    Calculator sut;
+    private Calculator calculator;
 
     @BeforeAll
     public static void start () {
@@ -20,13 +20,13 @@ public class CalculatorTest {
     @BeforeEach
     public void testInit () {
         System.out.println("TestStarted");
-        sut = new Calculator();
+        calculator = new Calculator();
     }
 
     @AfterEach
     public void finishTheTest () {
         System.out.println("TestFinished");
-        sut=null;
+        calculator=null;
     }
 
     @AfterAll
@@ -39,9 +39,9 @@ public class CalculatorTest {
 
     @ParameterizedTest
     @MethodSource("source")
-    public void testConcat_validArgument_success_multiply(int a, int b, int expected) {
-        int actual = sut.multiply.apply(a,b);
-        assertEquals(expected, actual);
+    public void testConcat_validArgument_success(int a, int b, int expected) {
+        int result = calculator.multiply.apply(a,b);
+        assertEquals(expected, result);
 
     }
 
@@ -54,11 +54,4 @@ public class CalculatorTest {
 
     }
 
-    @Test
-    public void testConcat_validArgument_success_devideByZero() {
-        int a=4,b=0;
-        var expected=ArithmeticException.class;
-        assertThrows(expected,
-                ()->sut.devide.apply(a,b));
-    }
 }
